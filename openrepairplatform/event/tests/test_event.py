@@ -1,7 +1,7 @@
 import datetime
 import pytest
 from django.contrib.auth import get_user
-from django.core import signing
+from django.core import signing, mail
 from django.urls import reverse
 from django.utils import timezone
 
@@ -651,3 +651,37 @@ def test_remove_active_event(
     )
     event.refresh_from_db()
     assert event.organizers.count() == 0
+
+
+def test_send_invitation_event(
+    client, organization, event_factory, custom_user_factory
+):
+    volunteer = custom_user_factory.create_batch(1)
+    organization.volunteers.set([volunteer])
+    event = event_factory(organization=organization)
+    token = signing.dumps(
+        {"user_id": volunteer.pk, "event_id": event.pk}, salt="invitation"
+    )
+    resp = client.post(
+        reverse("event:invitation", args=[token]),
+        {"email_participant": "test@test.fr", "email_animator": ""}
+    )
+    breakpoint()
+    assert len(mail.outbox) == 1
+
+
+def test_send_invitation_event_error(
+    client, organization, event_factory, custom_user_factory
+):
+    volunteer = custom_user_factory.create_batch(1)
+    organization.volunteers.set([volunteer])
+    event = event_factory(organization=organization)
+    token = signing.dumps(
+        {"user_id": volunteer.pk, "event_id": event.pk}, salt="invitation"
+    )
+    resp = client.post(
+        reverse("event:invitation", args=[token]),
+        {"email_participant": "", "email_animator": ""}
+    )
+    breakpoint()
+    assert len(mail.outbox) == 0

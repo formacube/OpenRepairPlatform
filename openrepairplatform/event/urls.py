@@ -8,18 +8,18 @@ app_name = "event"
 
 urlpatterns = [
     path(
-        "future_event_place_autocomplete/", 
-        views.FutureEventPlaceAutocomplete.as_view(), 
+        "future_event_place_autocomplete/",
+        views.FutureEventPlaceAutocomplete.as_view(),
         name="future_event_place_autocomplete",
     ),
     path(
-        "future_event_activity_autocomplete/", 
-        views.FutureEventActivityAutocomplete.as_view(), 
+        "future_event_activity_autocomplete/",
+        views.FutureEventActivityAutocomplete.as_view(),
         name="future_event_activity_autocomplete",
     ),
     path(
         "<str:orga_slug>/condition_orga_autocomplete/",
-        views.ConditionOrgaAutocomplete.as_view(), 
+        views.ConditionOrgaAutocomplete.as_view(),
         name="condition_orga_autocomplete",
     ),
     path(
@@ -96,4 +96,5 @@ urlpatterns = [
     ),
     path("book/<token>/", views.BookView.as_view(), name="book"),
     path("absent/<token>/", views.AbsentView.as_view(), name="user_absent"),
+    path("invitation/<token>/", views.InvitationFormView.as_view(), name="send_invitation"),
 ]

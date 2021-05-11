@@ -28,7 +28,7 @@
   {% include "breadcrumb.html" with current=event first_parent_url=event_list_url first_parent_text="Évènements" %}
 
     <div class="container pl-4 pr-4 pt-2 bg-white" id="event_about">
-      <h3 class="bg-white" id="event_title">{% if event.activity.category %} {{event.activity.category}} - {% endif %} {{ event.activity }} du {{ event.date }}      
+      <h3 class="bg-white" id="event_title">{% if event.activity.category %} {{event.activity.category}} - {% endif %} {{ event.activity }} du {{ event.date }}
         <div class="lead float-right ml-2">
         {% if is_active %}
           <a href="{% url 'event:edit' event.pk %}" class="btn btn-secondary rounded-circle"><i class="fa fa-pencil-alt"></i></a>
@@ -44,11 +44,11 @@
           {{ event.organization.name }}
         </a>
         {% if event.collaborator %}
-        <small>en partenariat avec {{ event.collaborator }}</small> 
+        <small>en partenariat avec {{ event.collaborator }}</small>
         {% endif %}
       </p>
       <p>
-          <i class="fa fa-calendar-alt"></i> 
+          <i class="fa fa-calendar-alt"></i>
           Le {{ event.date|date:"l j F Y " }} de {{ event.starts_at }} à {{ event.ends_at }}
       </p>
     <h6 class="text-muted">
@@ -107,7 +107,7 @@
     </div>
 
     <div class="col-lg-12">
-      
+
       {% if event.description %}
         <div class="pl-2 pr-2">
           {{event.description | safe }}
@@ -124,7 +124,7 @@
             <li class="">
               {% if condition.price > 0 %}
                 <span class="badge badge-pill badge-secondary">
-                  {{ condition.price }}€</span> 
+                  {{ condition.price }}€</span>
                 {% else %}
                 {% endif %}
               <small>{{ condition.description | safe }}</small>
@@ -140,7 +140,7 @@
               <img class="img-responsive col-md-6 h-100 p-0" src="{{ event.activity.picture.url }}" alt="activity illustration">
             {% endif %}
 
-            {% if event.activity %}                
+            {% if event.activity %}
             <div class="col-md-6">
               <b>{{event.activity.name}}</b>
               <small class="">
@@ -219,7 +219,7 @@
               Clôturer
             </button>
           </form>
-        {% endif %} 
+        {% endif %}
     {% endif %}
     <div class="text-center d-flex justify-content-center align-items-center flex-md-column" id="v-pills-tab" role="tablist" aria-orientation="horizontal">
       <nav class="nav nav-pills justify-content-center w-100" id="h_nav">
@@ -229,7 +229,7 @@
           {% endif %}
       </nav>
     </div>
-    <div class="tab-content" id="v-pills-tabContent">    
+    <div class="tab-content" id="v-pills-tabContent">
       <div class="tab-pane fade show active p-2 h-100" id="v-pills-reservation" role="tabpanel" aria-labelledby="v-pills-reservation-tab">
         <h5 class="mt-4
           {% if event.needed_organizers != 0 %}
@@ -270,11 +270,11 @@
             {% for participation in event.participations.all %}
                 <div class="card border border-success mx-2" style="border-width:2px !important">
                   <div class="card-body text-center p-2">
-                    <a href="{% url "user:user_detail" participation.user.pk %}" class="card-link"> 
+                    <a href="{% url "user:user_detail" participation.user.pk %}" class="card-link">
                       <div class="row">
                           {% filter_orga queryset=participation.user.memberships organization=event.organization as membership %}
                           {% if membership %}
-                            {% if membership.current_contribution == 0 %} 
+                            {% if membership.current_contribution == 0 %}
                               <span class="badge badge-pill badge-primary text-danger float-left" >{{ membership.current_contribution }}€</span>
                             {% elif membership.current_contribution >= event.organization.advised_fee %}
                               <span class="badge badge-pill badge-primary text-success float-left">{{ membership.current_contribution }}€</span>
@@ -288,7 +288,7 @@
                             <span class="badge badge-pill badge-success float-left">
                             + {{ participation.amount }}€
                             </span>
-                            <small class="pl-1 text-success">{{ participation.fee.get_payment_display }}</small>   
+                            <small class="pl-1 text-success">{{ participation.fee.get_payment_display }}</small>
                           {% endif %}
                         </div>
                       <div class="row text-center" id="square-{{ participation.user.pk }}">
@@ -320,6 +320,10 @@
                 </div>
             {% endfor %}
           </div>
+          <!-- Section Invitation -->
+          <hr/>
+          {% include 'event/invitation.html' %}
+
         {% else %}
           <p>Pour voir les participations vous devez être membre actif de l'organisation </p>
         {% endif %}
@@ -339,10 +343,10 @@
                   {% endif %}
                   <div class="float-right">{% include "inventory/stuff_state_display.html" with stuff_state=stuff.get_state_display %}</div>
                 </h6>
-                {% if stuff.folders.all %} 
-                  {{stuff.folders.all.count}} dossiers en cours 
+                {% if stuff.folders.all %}
+                  {{stuff.folders.all.count}} dossiers en cours
                 {% else %}
-                Pas de dossiers pour l'instant. 
+                Pas de dossiers pour l'instant.
                 {% endif %}
               </div>
             {% empty %}

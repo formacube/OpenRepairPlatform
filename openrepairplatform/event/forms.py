@@ -4,7 +4,8 @@ from dal import autocomplete
 
 from django import forms
 from django.forms import ModelForm
-from dal import autocomplete 
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
 
 from openrepairplatform.event.models import Event, Activity, Condition
 from openrepairplatform.location.models import Place
@@ -29,7 +30,7 @@ class EventForm(ModelForm):
         super().__init__(*args, **kwargs)
         self.fields["organizers"] = forms.ModelMultipleChoiceField(
             queryset=(
-                self.orga.actives.all() | self.orga.admins.all() | self.orga.volunteers.all() 
+                self.orga.actives.all() | self.orga.admins.all() | self.orga.volunteers.all()
             ),
             widget=autocomplete.ModelSelect2Multiple(url='/' + self.orga.slug + '/user_orga_autocomplete/'),
             required=False,
@@ -119,7 +120,7 @@ class RecurrentEventForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields["organizers"] = forms.ModelMultipleChoiceField(
             queryset=(
-                self.orga.actives.all() | self.orga.admins.all() | self.orga.volunteers.all() 
+                self.orga.actives.all() | self.orga.admins.all() | self.orga.volunteers.all()
             ).distinct(),
             widget=autocomplete.ModelSelect2Multiple(url='/' + self.orga.slug + '/user_orga_autocomplete/'),
             required=False,
@@ -269,7 +270,7 @@ class EventSearchForm(forms.Form):
             queryset=Place.objects.filter(
                 events__in=future_events
             ).distinct(),
-            widget=autocomplete.ModelSelect2(url='event:future_event_place_autocomplete', 
+            widget=autocomplete.ModelSelect2(url='event:future_event_place_autocomplete',
             forward=['activity']),
             label="Lieu",
         )
@@ -280,3 +281,20 @@ class EventSearchForm(forms.Form):
             ).distinct(),
             label="Organisateur",
         )
+
+
+class InvitationForm(forms.Form):
+    email_participant = forms.EmailField(
+        label="Inviter un participant",
+        widget=forms.EmailInput(
+            attrs={"placeholder": "Email", "class": "d-none form-control"}
+        ),
+        required=False
+    )
+    email_animator = forms.EmailField(
+        label="Inviter un animateur",
+        widget=forms.EmailInput(
+            attrs={"placeholder": "Email", "class": "d-none form-control"}
+        ),
+        required=False
+    )
