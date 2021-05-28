@@ -1,7 +1,7 @@
 from os.path import dirname, abspath, join
 import os
 
-from bootstrap4 import forms
+from bootstrap5 import forms
 from django.contrib import messages
 from dotenv import load_dotenv
 
@@ -19,9 +19,9 @@ ALLOWED_HOSTS = []
 SITE_ID = 1
 
 INSTALLED_APPS = [
-    'dal',
-    'dal_select2',
-    'tinymce',
+    "dal",
+    "dal_select2",
+    "tinymce",
     "openrepairplatform.user",
     "openrepairplatform.event",
     "openrepairplatform.location",
@@ -39,19 +39,18 @@ INSTALLED_APPS = [
     "bootstrap",
     "fontawesome",
     "django_assets",
-    "bootstrap4",
+    "bootstrap5",
     "sorl.thumbnail",
     "import_export",
     "initial_avatars",
     "django_gravatar",
     'django_extensions',
-    "captcha",
     "django_tables2",
-    'django_tables2_column_shifter',
-    'django_filters',
-    'treebeard',
-    'bootstrap_modal_forms',
-    'django_better_admin_arrayfield'
+    "django_tables2_column_shifter",
+    "django_filters",
+    "treebeard",
+    "bootstrap_modal_forms",
+    "django_better_admin_arrayfield",
 ]
 
 
@@ -65,7 +64,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.locale.LocaleMiddleware",
     "simple_history.middleware.HistoryRequestMiddleware",
-    "openrepairplatform.event.middleware.middleware.ForceLangMiddleware"
+    "openrepairplatform.event.middleware.middleware.ForceLangMiddleware",
 ]
 
 ROOT_URLCONF = "openrepairplatform.urls"
@@ -112,6 +111,8 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": (AUTH_PASSWORD_VALIDATION + "NumericPasswordValidator")},
 ]
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
@@ -134,12 +135,13 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = join(BASE_DIR, "media")
 
 FILE_UPLOAD_HANDLERS = [
-    'django.core.files.uploadhandler.TemporaryFileUploadHandler',
+    "django.core.files.uploadhandler.TemporaryFileUploadHandler",
 ]
 
 # Email Settings
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = join(BASE_DIR, "tmp", "messages")
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
 
 
 AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",)
@@ -148,20 +150,31 @@ AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",)
 ASSETS_MODULES = ["openrepairplatform.assets"]
 ASSETS_ROOT = STATICFILES_DIRS[0]
 
-# Add class to field wrapper in django-bootstrap4
+# Add class to field wrapper in django-bootstrap5
 forms.FORM_GROUP_CLASS += " p-2"
 
 # django messages settings
 MESSAGE_TAGS = {messages.ERROR: "danger"}
 
 # Avatar Innitials Settings
+<<<<<<< HEAD
 AVATAR_COLORS = ((254, 229, 110), (8, 51, 66), (43, 230, 171),)
+=======
+AVATAR_COLORS = (
+    (254, 229, 110),
+    (8, 51, 66),
+    (43, 230, 171),
+)
 
-# Captcha 
-RECAPTCHA_PUBLIC_KEY = '6Lfe2dIUAAAAAPY7q6Q-W1PDsFWpgn4jiv-9fa1N'
-RECAPTCHA_PRIVATE_KEY = '6Lfe2dIUAAAAADoVIbd8p2YAk7QdH65FS8aC6KX6'
-RECAPTCHA_PROXY = {'http': 'http://dev.atelier-soude.fr', 'https': 'https://dev.atelier-soude.fr'}
-RECAPTCHA_DOMAIN = 'www.recaptcha.net'
+# Captcha
+RECAPTCHA_PUBLIC_KEY = "6Lfe2dIUAAAAAPY7q6Q-W1PDsFWpgn4jiv-9fa1N"
+RECAPTCHA_PRIVATE_KEY = "6Lfe2dIUAAAAADoVIbd8p2YAk7QdH65FS8aC6KX6"
+RECAPTCHA_PROXY = {
+    "http": "http://dev.atelier-soude.fr",
+    "https": "https://dev.atelier-soude.fr",
+}
+RECAPTCHA_DOMAIN = "www.recaptcha.net"
+>>>>>>> origin/update_app_dependencies
 
 # Django tables2
 DJANGO_TABLES2_TEMPLATE = "django_tables2/bootstrap4.html"

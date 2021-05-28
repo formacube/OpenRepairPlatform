@@ -1,14 +1,8 @@
 {% extends 'base.html' %}
-{% load static bootstrap4 thumbnail%}
+{% load static bootstrap5 thumbnail%}
 {% block title %}Page de {{organization.name}} sur {{site_title}}{% endblock %}
 
 {% load assets app_filters thumbnail %}
-
-{% block extra_css %}
-  {% assets "css_detail_organization" %}
-    <link type="text/css" href="{{ ASSET_URL }}" rel="stylesheet"/>
-  {% endassets %}
-{% endblock %}
 
 {% block content %}
 <div class="container-fluid">

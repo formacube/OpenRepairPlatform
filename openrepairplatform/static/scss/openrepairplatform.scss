@@ -40,11 +40,10 @@ h5{
 }
 
 .bg-grey { 
-  background-color: #fff !important;
+  background-color: #fdfdfd !important;
 }
 
 /* tables */ 
-
 thead {
   background-color: rgb(249, 249, 249);
   a{
@@ -74,6 +73,7 @@ tbody {
     table-layout:fixed;
 }
 }
+
 .small-column{
   width:70px;
 }  
@@ -118,7 +118,7 @@ td {
   display: block !important ;
 }
 .select2-container{
-  min-width: 200px !important;
+  width: 100% !important;
 }
 .search-bar{
   .form-group{
@@ -134,9 +134,42 @@ td {
 
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
   background-color: $primary !important;
-
 }
 
+/* Custom auto-complete */
+.autocomplete-suggestions {
+  text-align: left; 
+  cursor: default; 
+  border: 1px solid #ccc; 
+  border-top: 0; 
+  background: #fff; 
+  box-shadow: -1px 1px 3px rgba(0,0,0,.1);
+  position: absolute; 
+  display: none; 
+  z-index: 9999; 
+  max-height: 254px; 
+  overflow: hidden; 
+  overflow-y: auto; 
+  box-sizing: border-box;
+}
+
+.autocomplete-suggestion { 
+  position: relative; 
+  padding: 0 .6em; 
+  line-height: 23px; 
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+  font-size: 1.02em; 
+  color: #333; 
+  b {
+    font-weight: normal; 
+    color: $success; 
+  }
+  .selected { 
+    background: #f0f0f0; 
+  }
+}
 
 /* pagination fix */ 
 .pagination {
@@ -160,7 +193,6 @@ td {
 }
 
 /* Menu */
-
 .main-container {
   padding-top: 65px;
 }
@@ -258,7 +290,6 @@ td {
 }
 
 /* jumbotron */ 
-
 .no-padding-jumbotron {
   padding: 1rem 0rem 0rem 0rem;
   margin-bottom: 0px;
@@ -300,7 +331,12 @@ td {
   left:0px;
 }
 
-
+#map{
+  position: fixed;
+  right: 0px;
+  top: 150px;
+  bottom: 0px;
+}
 
 .gravatar{
   border-radius: 50%;
@@ -319,9 +355,11 @@ td {
 }
 
 .event_img {
- /* object-fit: none; 
-  object-position: center; */
   width: 100%;
+}
+
+.event a:hover {
+  text-decoration: none !important;
 }
 
 /* breadcrumb (chemin navigation) */
@@ -431,9 +469,7 @@ position: relative;
      padding-top: 10px !important;
      line-height: 75px;
    }
-   #side_nav .badge{
-     margin-top: 37px !important;
-   } 
+
   #v-pills-tab{
     width:100%;
     padding: 0px !important;
@@ -448,6 +484,7 @@ position: relative;
   .event_list_cards{
     column-count: 1;
    }
+
   #event_about {
     padding:25px !important;
     padding-bottom: 0px !important;
@@ -455,7 +492,9 @@ position: relative;
   #event_map {
     z-index: 1;
   }
-
+  #map {
+    visibility: hidden;
+  }
   .header_detail_page, #h_nav, #breadcrumb, #jumbotron, #search_tab, #event_title, .booking_form, .jumbotron {
      z-index: 2 !important;
    }
@@ -463,13 +502,6 @@ position: relative;
      z-index: 3 !important;
      display: relative;
    }
-}
-
-@media screen and (max-width: 576px) {
-  .container{
-  /*  margin: 0px !important;
-    padding: 0px !important; */
-  }
 }
 
 // Menu hack for mobile slide left up // 
