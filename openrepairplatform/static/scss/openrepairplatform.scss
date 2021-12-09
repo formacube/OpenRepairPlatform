@@ -1,6 +1,10 @@
 
 @import url('https://fonts.googleapis.com/css?family=Inconsolata&display=swap');
-@import 'variables.scss';
+
+$primary: #02006d;
+$secondary: #e0c5ff;
+$success: #47b947; 
+$link: #1c19a3;
 
 .container-fluid{
   padding: 0px;
