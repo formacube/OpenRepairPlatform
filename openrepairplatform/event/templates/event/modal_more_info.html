@@ -1,5 +1,5 @@
 {% load bootstrap5 app_filters %}
-<div class="modal" id="more-info-{{ user.pk }}" tabindex="-1" role="dialog">
+<div class="modal" id="more-info-{{ user.pk|escape }}" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -19,18 +19,18 @@
                 statut
                   {% if membership.current_contribution == 0 %}
                       <span class="text-danger" >Pas à jour</span>
-                      <span class="badge badge-pill badge-danger" >{{membership.current_contribution}}€</span>
+                      <span class="badge badge-pill bg-danger" >{{membership.current_contribution}}€</span>
                   {% elif membership.current_contribution >= event.organization.advised_fee %}
                       <span class="text-success" >A jour </span>
-                      <span class="badge badge-pill badge-success" >{{membership.current_contribution}}€</span>
+                      <span class="badge badge-pill bg-success" >{{membership.current_contribution}}€</span>
                   {% else %}
                       <span class="text-warning" >Incomplet </span>
-                      <span class="badge badge-pill badge-warning" >{{membership.current_contribution}}€</span>
+                      <span class="badge badge-pill bg-warning" >{{membership.current_contribution}}€</span>
                   {% endif %}
               </p>
               {% else %}
               {{ user }} n'a pas encore contribué pour
-                  <span class="badge badge-pill badge-primary">{{ event.organization }}</span>
+                  <span class="badge badge-pill bg-primary">{{ event.organization }}</span>
               {% endif %}
           <p>{{ event.organization.get_membership_system_display }} Elle
             {% if event.organization.advised_fee == event.organization.min_fee %}
@@ -45,10 +45,14 @@
               method="post"
               class="text-left">
           <div class="modal-body">
-            {% csrf_token %}
+              {% csrf_token %}
               <div class="row m-2">
                 {% for field in form %}
-                  {% bootstrap_field field form_group_class="col-md-6 p-2"%}
+                  {% if field.name == "date" %}
+                    <input type="hidden" name="{{ field.name }}" value="{{ event.date|date:"Y-m-d" }}"/>
+                  {% else %}
+                    {% bootstrap_field field form_group_class="col-md-6 p-2" %}
+                  {% endif %}
                 {% endfor %}
               </div>
           </div>

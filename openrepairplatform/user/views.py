@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.db.models import Q
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
 from django.utils.decorators import method_decorator
@@ -15,11 +15,13 @@ from django.views.generic import (
     RedirectView,
 )
 from openrepairplatform.event.models import Event, Participation
+from openrepairplatform.location.models import Place
 from openrepairplatform.event.templatetags.app_filters import tokenize
 from openrepairplatform.mixins import (
     HasAdminPermissionMixin,
     HasActivePermissionMixin,
     HasVolunteerPermissionMixin,
+    LocationOrganization,
 )
 from openrepairplatform.inventory.mixins import PermissionCreateUserStuffMixin
 from openrepairplatform.user.models import CustomUser, Organization, Fee
@@ -31,6 +33,7 @@ from .forms import (
     UserCreateForm,
     OrganizationForm,
     CustomUserEmailForm,
+    AddFeeForm,
 )
 
 EVENTS_PER_PAGE = 6
@@ -198,6 +201,7 @@ class UserDetailView(PermissionCreateUserStuffMixin, DetailView):
         context["future_rendezvous"].sort(key=lambda evt: evt[0].date)
         context["stock"] = Stuff.objects.filter(member_owner=self.get_object())
         context["add_member_stuff"] = StuffForm
+        context["add_fee_form"] = AddFeeForm
         return context
 
 
@@ -228,7 +232,7 @@ class OrganizationEventsListView(HasVolunteerPermissionMixin, ListView):
         return organization.events.order_by("date")
 
 
-class OrganizationListView(ListView):
+class OrganizationListView(LocationOrganization, ListView):
     model = Organization
     template_name = "user/organization/organization_list.html"
 
@@ -236,6 +240,31 @@ class OrganizationListView(ListView):
         context = super().get_context_data(**kwargs)
         context["organization_menu"] = "active"
         return context
+
+    def get_queryset(self):
+        queryset = self.filter_queryset_location(super().get_queryset())
+        return queryset
+
+    def get(self, request, *args, **kwargs):
+        res = super().get(request, *args, **kwargs)
+        places = Place.objects.all()
+        if not self.object_list:
+            zipcodes = "<br/>".join({
+                f"- {place.zipcode}" for place in places if place.address
+            })
+            message = f"""
+                <p>
+                    <b>
+                    Il n'y a pas d'organisation dans la zone selectionnée.
+                    Vous pouvez retrouver nos organisations de réparation dans les zones
+                    suivantes :
+                    </b>
+                </p>
+                {zipcodes}
+            """
+            messages.info(request, message, extra_tags="safe")
+            return HttpResponseRedirect(reverse("homepage"))
+        return res
 
 
 @method_decorator(staff_member_required, name="dispatch")
@@ -382,3 +411,18 @@ class RemoveVolunteerFromOrganization(RemoveUserFromOrganization):
     @staticmethod
     def remove_user_from_orga(orga, user):
         orga.volunteers.remove(user)
+
+
+class FeeCreateView(RedirectView):
+    form_class = AddFeeForm
+    http_method_names = ['post']
+
+    def post(self, request, *args, **kwargs):
+        data = {
+            key: value for key, value in request.POST.dict().items()
+            if key in self.form_class.base_fields.keys()
+        }
+        form = self.form_class(data=data)
+        if form.is_valid():
+            form.save()
+        return HttpResponseRedirect(self.request.META["HTTP_REFERER"])

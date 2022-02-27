@@ -81,7 +81,7 @@ celerybeat-schedule
 *.sage.py
 
 # dotenv
-./openrepairplatform/.env
+openrepairplatform/.env
 .env
 deployment/.env
 
@@ -171,3 +171,5 @@ openrepairplatform/static/node_modules/
 openrepairplatform/static/js/vue/app.js
 openrepairplatform/static/css/vue-app.css
 
+openrepairplatform/static/js/vue.apps.bundle.js
+openrepairplatform/static/js/vue.apps.bundle.css
