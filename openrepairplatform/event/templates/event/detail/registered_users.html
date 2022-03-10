@@ -43,13 +43,13 @@
                 {% if membership %}
                   {% if membership.current_contribution == 0 %}
                   <span class="text-danger" >Pas de cotisation</span>
-                  <span class="badge badge-pill bg-danger" >0€</span>
+                  <span class="badge badge-pill bg-danger" >{{0|currency}}</span>
                   {% elif membership.current_contribution >= event.organization.advised_fee %}
                   <span class="text-success" >A jour </span>
-                  <span class="badge badge-pill bg-success" >{{membership.current_contribution}}€/{{event.organization.advised_fee}}€</span>
+                  <span class="badge badge-pill bg-success" >{{membership.current_contribution|currency}}/{{event.organization.advised_fee|currency}}</span>
                   {% else %}
                   <span class="text-warning" >Incomplet</span>
-                  <span class="badge badge-pill bg-warning" >{{membership.current_contribution}}€</span>
+                  <span class="badge badge-pill bg-warning" >{{membership.current_contribution|currency}}</span>
                   {% endif %}
                 {% else %}
                     Non membre
@@ -72,7 +72,7 @@
                 {% if fees %}
                   {% for fee in fees %}
                   <span class="badge badge-pill badge-light pe-2 m-2">
-                    {{ fee.amount }}€
+                    {{ fee.amount|currency }}
                     {{ fee.get_payment_display }}
                     <form class="d-inline" action="{% url 'user:fee_delete' fee.pk %}" method="post">
                       {% csrf_token %}
@@ -87,13 +87,13 @@
                 <p><b>Participation</b>
                   <br>
                   {% if participation.amount == 0 or not participation.amount %}
-                  <span class="text-danger">0€</span>
+                  <span class="text-danger">{{0|currency}}</span>
                   {% elif participation.amount >= condition_prices %}
-                  <span class="text-success">{{participation.amount}}€</span>
+                  <span class="text-success">{{participation.amount|currency}}</span>
                   {% else %}
-                  <span class="text-warning">{{participation.amount}}€</span>
+                  <span class="text-warning">{{participation.amount|currency}}</span>
                   {% endif %}
-                  / {{condition_prices }}€
+                  / {{condition_prices|currency }}
                 </p>
                 {% if participation %}
                   <button class="btn btn-light btn-sm" data-toggle="modal" data-target="#participation-{{ user.pk }}">

@@ -1,4 +1,5 @@
 from datetime import date, datetime, timedelta
+import locale
 
 from django.db import models
 from django.urls import reverse
@@ -32,9 +33,12 @@ class Condition(models.Model):
             kwargs={"orga_slug": self.organization.slug},
         )
 
+    def price_w_currency(self):
+        return locale.currency(self.price, grouping=True)
+
     def __str__(self):
         if self.price > 0:
-            return f"{self.name} - {self.price}€"
+            return f"{self.name} - {self.price_w_currency}"
         return self.name
 
 
@@ -42,6 +46,12 @@ class ActivityCategory(models.Model):
     name = models.CharField(verbose_name=_("Activity type"), max_length=100)
     slug = models.SlugField(blank=True)
     history = HistoricalRecords()
+    index = models.PositiveIntegerField(verbose_name='Order',
+                                        default=0,
+                                        editable=True,
+                                        help_text='Order in which the activity types will be displayed')
+    # The index field must be editable to enable adminsortable2 to work
+    # for enabling  the elements always to be displayed in the right order, even if new ones
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
@@ -50,6 +60,8 @@ class ActivityCategory(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ['index', ]
 
 class Activity(models.Model):
     name = models.CharField(verbose_name=_("Activity type"), max_length=100)
@@ -87,6 +99,8 @@ class Activity(models.Model):
     def next_events(self):
         return get_future_published_events(self.events)[0:3]
 
+    class Meta:
+        verbose_name_plural = 'Activities'
 
 class Event(models.Model):
     WEEKS = [

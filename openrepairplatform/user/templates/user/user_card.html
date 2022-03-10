@@ -11,14 +11,14 @@
         {% filter_orga queryset=user.memberships organization=event.organization as membership %}
         {% if membership %}
           {% if membership.current_contribution == 0 %}
-            <span class="badge badge-pill bg-primary text-danger float-start" >0€</span>
+            <span class="badge badge-pill bg-primary text-danger float-start" >{{0|currency}}</span>
           {% elif membership.current_contribution >= event.organization.advised_fee %}
-            <span class="badge badge-pill bg-primary text-success float-start">{{ membership.current_contribution }}€</span>
+            <span class="badge badge-pill bg-primary text-success float-start">{{ membership.current_contribution|currency }}</span>
           {% else %}
-            <span class="badge badge-pill bg-primary text-warning float-start" >{{ membership.current_contribution }}€</span>
+            <span class="badge badge-pill bg-primary text-warning float-start" >{{ membership.current_contribution|currency }}</span>
           {% endif %}
         {% else %}
-          <span class="badge badge-pill bg-primary text-danger float-start" >0€</span>
+          <span class="badge badge-pill bg-primary text-danger float-start" >{{0|currency}}</span>
         {% endif %}
       {% endif %}
       </div>

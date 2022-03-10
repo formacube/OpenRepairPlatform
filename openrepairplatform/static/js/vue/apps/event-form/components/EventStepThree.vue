@@ -37,7 +37,7 @@
               <h5 class="card-header">{{ condition.name }}</h5>
               <div class="card-body">
                 <p class="card-text ms-2" v-html="condition.description"></p>
-                <b v-if="condition.price > 0">{{ condition.price }} €</b>
+                <b v-if="condition.price > 0">{{ condition.price|currency }}</b>
               </div>
             </div>
           </section>

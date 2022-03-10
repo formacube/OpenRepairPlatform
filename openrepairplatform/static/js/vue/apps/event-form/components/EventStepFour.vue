@@ -96,7 +96,7 @@
           <h5 class="card-header">{{ condition.fields.name }}</h5>
           <div class="card-body">
             <p class="card-text ms-2" v-html="condition.fields.description"></p>
-            <b v-if="condition.price">{{ condition.fields.price }} €</b>
+            <b v-if="condition.price">{{ condition.fields.price|currency }}</b>
           </div>
         </div>
       </section>

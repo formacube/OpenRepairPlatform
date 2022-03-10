@@ -189,7 +189,7 @@
                 <li class="">
                   {% if condition.price > 0 %}
                     <span class="badge badge-pill bg-secondary">
-                      {{ condition.price }}€</span>
+                      {{ condition.price|currency }}</span>
                     {% else %}
                     {% endif %}
                   <span>{{ condition.description | safe }}</span>
@@ -208,21 +208,21 @@
                   <small>statut</small>
                     {% if user_is_member.current_contribution == 0 %} 
                         <small class="text-danger" >Pas à jour</small>
-                        <span class="badge badge-pill bg-danger" >{{user_is_member.current_contribution}}€</span>
+                        <span class="badge badge-pill bg-danger" >{{user_is_member.current_contribution|currency}}</span>
                     {% elif user_is_member.current_contribution >= organization.advised_fee %}
                         <small class="text-success" >A jour </small>
-                        <span class="badge badge-pill bg-success" >{{user_is_member.current_contribution}}€</span>
+                        <span class="badge badge-pill bg-success" >{{user_is_member.current_contribution|currency}}</span>
                     {% else %}
                         <small class="text-warning" >Incomplet </small>
-                        <span class="badge badge-pill bg-warning" >{{user_is_member.current_contribution}}€</span>
+                        <span class="badge badge-pill bg-warning" >{{user_is_member.current_contribution|currency}}</span>
                     {% endif %}
                   {% endif %}
                 </p>
                 <p>{{ event.organization.get_membership_system_display }} Elle
                   {% if event.organization.advised_fee == event.organization.min_fee %}
-                  est de {{event.organization.min_fee}}€
+                  est de {{event.organization.min_fee|currency}}
                   {% else %}
-                  va de {{event.organization.min_fee}}€ à {{event.organization.advised_fee}}€ 
+                  va de {{event.organization.min_fee|currency}} à {{event.organization.advised_fee|currency}} 
                   {% endif %}
                   {% if event.organization.membership_url %}
                     Vous pouvez
@@ -303,7 +303,7 @@
                   <i class="far fa-check-circle fa-1x text-success"></i> 
                   {% if condition.price > 0 %}
                     <span class="badge badge-pill bg-secondary">
-                      {{ condition.price }}€</span>
+                      {{ condition.price|currency }}</span>
                   {% endif %}
                   <span>{{ condition.description | safe }}</span>
                 </li>
@@ -339,21 +339,21 @@
                   <small>status</small>
                     {% if user_is_member.current_contribution == 0 %} 
                         <small class="text-danger" >Pas à jour</small>
-                        <span class="badge badge-pill bg-danger" >{{user_is_member.current_contribution}}€</span>
+                        <span class="badge badge-pill bg-danger" >{{user_is_member.current_contribution|currency}}</span>
                     {% elif user_is_member.current_contribution >= organization.advised_fee %}
                         <small class="text-success" >A jour </small>
-                        <span class="badge badge-pill bg-success" >{{user_is_member.current_contribution}}€</span>
+                        <span class="badge badge-pill bg-success" >{{user_is_member.current_contribution|currency}}</span>
                     {% else %}
                         <small class="text-warning" >Incomplet </small>
-                        <span class="badge badge-pill bg-warning" >{{user_is_member.current_contribution}}€</span>
+                        <span class="badge badge-pill bg-warning" >{{user_is_member.current_contribution|currency}}</span>
                     {% endif %}
                   {% endif %}
                 </p>
                 <p>{{ event.organization.get_membership_system_display }} Elle
                   {% if event.organization.advised_fee == event.organization.min_fee %}
-                  est de {{event.organization.min_fee}}€
+                  est de {{event.organization.min_fee|currency}}
                   {% else %}
-                  va de {{event.organization.min_fee}}€ à {{event.organization.advised_fee}}€ . 
+                  va de {{event.organization.min_fee|currency}} à {{event.organization.advised_fee|currency}} . 
                   {% endif %}
                   {% if event.organization.membership_url %}
                     <br>

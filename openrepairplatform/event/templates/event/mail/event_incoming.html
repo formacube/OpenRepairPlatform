@@ -291,7 +291,7 @@
 		<li style="font-size: 14px; line-height: 1.5; mso-line-height-alt: 21px;">
 			{% if condition.price > 0 %}
 			<span>
-				{{ condition.price }}€</span> 
+				{{ condition.price|currency }}</span> 
 			{% else %}
 			{% endif %}
 			{{ condition.description | safe }}

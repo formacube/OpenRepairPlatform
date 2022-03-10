@@ -118,7 +118,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
-LANGUAGE_CODE = "fr-fr"
+COUNTRY = 'FR'  #'CH', 'US' 
+LANGUAGE_CODE = f"fr-{COUNTRY}" # fr_fr, fr_CH
 
 TIME_ZONE = "Europe/Paris"
 
@@ -127,6 +128,15 @@ USE_L10N = True
 USE_TZ = True
 USE_THOUSAND_SEPARATOR = True
 
+
+
+CURRENCIES = {
+	'FR' : ['EUR', '€'],
+	'CH' : ['CHF', 'CHF'],
+	'US' : ['USD', '$'],
+}
+CURRENCY_DISPLAY = CURRENCIES[COUNTRY][1]
+CURRENCY_CODE = CURRENCIES[COUNTRY][0]
 
 STATICFILES_DIRS = [join(PROJECT_DIR, "static")]
 

@@ -19,13 +19,13 @@
                 statut
                   {% if membership.current_contribution == 0 %}
                       <span class="text-danger" >Pas à jour</span>
-                      <span class="badge badge-pill bg-danger" >{{membership.current_contribution}}€</span>
+                      <span class="badge badge-pill bg-danger" >{{membership.current_contribution|currency}}</span>
                   {% elif membership.current_contribution >= event.organization.advised_fee %}
                       <span class="text-success" >A jour </span>
-                      <span class="badge badge-pill bg-success" >{{membership.current_contribution}}€</span>
+                      <span class="badge badge-pill bg-success" >{{membership.current_contribution|currency}}</span>
                   {% else %}
                       <span class="text-warning" >Incomplet </span>
-                      <span class="badge badge-pill bg-warning" >{{membership.current_contribution}}€</span>
+                      <span class="badge badge-pill bg-warning" >{{membership.current_contribution|currency}}</span>
                   {% endif %}
               </p>
               {% else %}
@@ -34,9 +34,9 @@
               {% endif %}
           <p>{{ event.organization.get_membership_system_display }} Elle
             {% if event.organization.advised_fee == event.organization.min_fee %}
-            est de {{event.organization.min_fee}}€
+            est de {{event.organization.min_fee|currency}}
             {% else %}
-            va de {{event.organization.min_fee}}€ à {{event.organization.advised_fee}}€
+            va de {{event.organization.min_fee|currency}} à {{event.organization.advised_fee|currency}}
             {% endif %}
           </p>
         </b>

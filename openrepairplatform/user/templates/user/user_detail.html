@@ -296,7 +296,7 @@
               {% else %}
                 <small class="text-warning">Incomplet </small>
               {% endif %}
-              <span class="badge badge-pill badge-success float-right">{{ membership.current_contribution }}€</span></h5>
+              <span class="badge badge-pill badge-success float-right">{{ membership.current_contribution|currency }}</span></h5>
 
               <div>
                 <label class="btn btn-success btn-sm" for="modal_fee_{{ membership.organization.name }}">Ajouter une cotisation</label>
@@ -345,7 +345,7 @@
                       {% endif %}
                     </td>
                     <td class="text-right">
-                      <b>{{ fee.amount }}€</b><br>
+                      <b>{{ fee.amount|currency }}</b><br>
                       <small>{{ fee.get_payment_display }}</small>
                    </td>
                     <td>

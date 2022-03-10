@@ -81,7 +81,7 @@
                         {% if organization.min_fee %}
                           {{ organization.min_fee }} - 
                         {% endif %}    
-                        {{ organization.advised_fee }}€
+                        {{ organization.advised_fee|currency }}
                       </span>
                     </p>
                   </div>

@@ -1,6 +1,9 @@
 from django import template
 from django.core import signing
 
+import locale
+# locale.setlocale(locale.LC_ALL, '')
+
 from openrepairplatform.user.models import Fee
 
 register = template.Library()
@@ -63,3 +66,8 @@ def query_transform(request, **kwargs):
 @register.simple_tag
 def sum_conditions(conditions):
     return sum(condition.price for condition in conditions)
+
+ 
+@register.filter()
+def currency(value):
+    return locale.currency(value, grouping=True)

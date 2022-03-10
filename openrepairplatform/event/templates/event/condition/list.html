@@ -6,7 +6,7 @@
       {{ condition.description | safe }}
       <span class="badge badge-pill bg-secondary">
         {% if condition.price > 0 %}
-          {{ condition.price }}€
+          {{ condition.price|currency }}
         {% else %}
           free
         {% endif %}
