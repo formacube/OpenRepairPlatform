@@ -1,8 +1,9 @@
 from django import template
+from django.conf import settings
 from django.core import signing
 
 import locale
-# locale.setlocale(locale.LC_ALL, '')
+locale.setlocale(locale.LC_ALL, settings.LANGUAGE_CODE)
 
 from openrepairplatform.user.models import Fee
 
