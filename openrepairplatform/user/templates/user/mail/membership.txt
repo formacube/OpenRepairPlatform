@@ -1,3 +1,4 @@
+{% load app_filters%}
 {{ user }},
 
 Tu es désormais membre de {{organization}}, depuis le {{date}}. Tu as donné {{paid|currency}} pour ta première adhésion. 

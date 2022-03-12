@@ -1,3 +1,4 @@
+{% load app_filters%}
 {{ user }},
 
 Vous avez réservé une place pour {{ event.activity.name }} du {{ event.date_interval_format }}.
