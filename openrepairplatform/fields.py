@@ -19,6 +19,7 @@ class CleanHTMLField(HTMLField):
         ALLOWED_ATTRS = [
             "style",
             "href",
+            "target",
             "class",
         ]
         ALLOWED_STYLES = [
