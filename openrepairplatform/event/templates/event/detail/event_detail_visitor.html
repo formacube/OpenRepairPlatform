@@ -158,7 +158,7 @@
                 <div class="col-md-6">
                   <b>{{event.activity.name}}</b>
                   <small class="">
-                  {{ event.activity.description | safe | truncatewords_html:30 }}
+                  {{ event.activity.description | safe | truncatewords_html:60 }}
                   </small>
                 </div>
               {% if event.activity.picture and event.activity.picture.url %}
