@@ -23,6 +23,7 @@ class CleanHTMLField(HTMLField):
             "href",
             "target",
             "rel",
+            "data-mce-href",
             "class",
         ]
         ALLOWED_STYLES = [
