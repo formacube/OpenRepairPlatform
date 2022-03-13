@@ -39,6 +39,7 @@ class CleanHTMLField(HTMLField):
             strip=True,
         )
         if cleaned_value != value:
+            breakpoint()
             raise ValidationError("Le format n'est pas autorisé.")
             # messages.warning(
             #         self.request, _("Le contenu du champ %s a été modifié pour des raisons de sécurité - merci de vérifier") % model_instance)
