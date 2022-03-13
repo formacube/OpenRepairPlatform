@@ -40,7 +40,7 @@ class PlaceMapView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(PlaceMapView, self).get_context_data(**kwargs)
-        context['initial_map_parameters'] = settings.INITIAL_MAP_PARAMETERS
+        context['initial_map_coordinates'], context['initial_map_coverage'] = settings.INITIAL_MAP_PARAMETERS
 
 class PlaceFormView(HasAdminPermissionMixin):
     def form_valid(self, form):

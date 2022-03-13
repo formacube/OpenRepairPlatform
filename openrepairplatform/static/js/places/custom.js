@@ -8,18 +8,18 @@ function htmlEscape(str) {
         .replace(/\//g, '&#x2F;');
 }
 
-function popup_message(place){
-    message = "<h5><u><a href=\"" + place.get_absolute_url + "\">" ;
+function popup_message(place) {
+    message = "<h5><u><a href=\"" + place.get_absolute_url + "\">";
     message += htmlEscape(place.name) + "</a></u></h5> <br> ";
     message += "<h6>" + htmlEscape(place.address) + "</h6>";
     message += place.future_events + " événéments à venir";
     return message;
 }
 
-var place_map = L.map('place_map').setView(initial_map_parameters);
+var place_map = L.map('place_map').setView(initial_map_coordinates, initial_map_coverage);
 // var place_map = L.map('place_map').setView([46.52, 6.63], 8);
 
-L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}',{
+L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     minZoom: 7,
     maxZoom: 999,
@@ -29,7 +29,7 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     reuseTiles: true,
 }).addTo(place_map);
 
-places.forEach(function(place){
+places.forEach(function (place) {
     index = 0
     if (place.future_events) {
         var blueMarker = L.AwesomeMarkers.icon({
@@ -38,11 +38,11 @@ places.forEach(function(place){
             markerColor: 'darkblue',
             myCustomId: place.pk,
         });
-        let marker = L.marker([place.latitude, place.longitude], {icon: blueMarker, myCustomId: place.pk}).addTo(place_map);
+        let marker = L.marker([place.latitude, place.longitude], { icon: blueMarker, myCustomId: place.pk }).addTo(place_map);
         marker.bindPopup(popup_message(place));
-        if (index==0) {
+        if (index == 0) {
             marker.openPopup()
         }
-        index+=1
+        index += 1
     }
 });
