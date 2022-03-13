@@ -1,5 +1,7 @@
 import bleach
+from django.contrib import messages
 from django.core.exceptions import ValidationError
+from django.utils.translation import gettext as _
 from tinymce.models import HTMLField
 
 
@@ -35,5 +37,9 @@ class CleanHTMLField(HTMLField):
             strip=True,
         )
         if cleaned_value != value:
-            raise ValidationError("Le format n'est pas autorisé.")
+            # raise ValidationError("Le format n'est pas autorisé.")
+            messages.warning(
+                    self.request, _("Le contenu du champ %s a été modifié pour des raisons de sécurité - merci de vérifier") % model_instance)
         return value
+
+    
