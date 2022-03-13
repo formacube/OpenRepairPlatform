@@ -22,6 +22,7 @@ class CleanHTMLField(HTMLField):
             "style",
             "href",
             "target",
+            "rel",
             "class",
         ]
         ALLOWED_STYLES = [
@@ -37,9 +38,9 @@ class CleanHTMLField(HTMLField):
             strip=True,
         )
         if cleaned_value != value:
-            # raise ValidationError("Le format n'est pas autorisé.")
-            messages.warning(
-                    self.request, _("Le contenu du champ %s a été modifié pour des raisons de sécurité - merci de vérifier") % model_instance)
+            raise ValidationError("Le format n'est pas autorisé.")
+            # messages.warning(
+            #         self.request, _("Le contenu du champ %s a été modifié pour des raisons de sécurité - merci de vérifier") % model_instance)
         return value
 
     
