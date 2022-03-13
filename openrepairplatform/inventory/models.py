@@ -35,7 +35,7 @@ class Category(MP_Node):
         return self.name
 
     class Meta:
-        verbose_name_plural = 'Activities'
+        verbose_name_plural = 'Categories'
 
 
 class Stuff(models.Model):
