@@ -321,6 +321,10 @@ class Membership(models.Model):
     def __str__(self):
         return f"{self.user}-{self.organization}"
 
+    def get_absolute_url(self):
+        # TODO: check that it is the right link to provide
+        return reverse("organization_fees", kwargs={"orga_slug": self.organization.slug})
+
     def update_first_payment(self):
         """
         If a new fee linked to current membership is add after the date limit
