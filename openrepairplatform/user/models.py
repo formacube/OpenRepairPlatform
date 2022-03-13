@@ -322,7 +322,7 @@ class Membership(models.Model):
         return f"{self.user}-{self.organization}"
 
     def get_absolute_url(self):
-        return self.user.get_absolute_url()
+        return self.user.get_absolute_url() + "#v-pills-membership"
 
     def update_first_payment(self):
         """
