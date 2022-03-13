@@ -138,7 +138,9 @@ CURRENCIES = {
 CURRENCY_DISPLAY = CURRENCIES[COUNTRY][1]
 CURRENCY_CODE = CURRENCIES[COUNTRY][0]
 
-INITIAL_MAP_PARAMETERS = ([46.52, 6.63], 8,) # for centering the map
+# long lat for centering the map + area size to cover
+INITIAL_MAP_PARAMETERS = ([46.52, 6.63], 12,) # Lausanne
+# INITIAL_MAP_PARAMETERS = ([45.76, 4.84], 12,) # Lyon
 
 STATICFILES_DIRS = [join(PROJECT_DIR, "static")]
 
