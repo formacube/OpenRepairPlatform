@@ -8,7 +8,7 @@
   <section class="container text-center">
     <h2 class="text-center mt-4">Evénements de {{ organization }}</h2>
     {% if is_active %}
-    <p class="d-none" id="ical">{{ request.META.HTTP_HOST }}{% url 'event:ical_events' organization.pk %}</p>
+    <p class="d-none" id="ical">{{ request.scheme }}://{{ request.META.HTTP_HOST }}{% url 'event:ical_events' organization.pk %}</p>
     <button onclick="copyToClipboard('#ical')" class="btn btn-light mb-2">
       <i class="far fa-calendar-plus"></i> Copier l'url Ical
     </button>
