@@ -322,8 +322,7 @@ class Membership(models.Model):
         return f"{self.user}-{self.organization}"
 
     def get_absolute_url(self):
-        # TODO: check that it is the right link to provide
-        return reverse("organization_fees", kwargs={"orga_slug": self.organization.slug})
+        return self.user.get_absolute_url()
 
     def update_first_payment(self):
         """
