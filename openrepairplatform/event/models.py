@@ -62,6 +62,7 @@ class ActivityCategory(models.Model):
 
     class Meta:
         ordering = ['index', ]
+        verbose_name_plural = 'Activity Categories'
 
 class Activity(models.Model):
     name = models.CharField(verbose_name=_("Activity type"), max_length=100)
