@@ -18,6 +18,7 @@
 
 {% block extra_js %}
   <script>
+    const initial_map_parameters = {{initial_map_parameters}}
     const places = JSON.parse(document.getElementById('places').textContent);
   </script>
   {% assets "js_places" %}
