@@ -116,6 +116,7 @@ class EventListView(LocationRedirectMixin, ListView):
         context["event_menu"] = "active"
         context["results_number"] = self.get_queryset().count()
         context["places"] = self.serializer_places(self.get_queryset())
+        context['initial_map_coordinates'], context['initial_map_coverage'] = settings.INITIAL_MAP_PARAMETERS
         return context
 
     def get(self, request, *args, **kwargs):
